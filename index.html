@@ -1,121 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Certificates</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Certificates</title>
 
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            padding: 20px;
-        }
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f9;
+    padding: 40px;
+}
 
-        .container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
+h1 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2rem;
+    color: #333;
+}
 
-        .certificate {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            transition: transform 0.2s;
-        }
+.container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+}
 
-        .certificate:hover {
-            transform: scale(1.05);
-        }
+.certificate {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: 0.25s ease;
+    cursor: pointer;
+    height: 330px;
+    display: flex;
+    flex-direction: column;
+}
 
-        .certificate img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
+.certificate:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
 
-        .certificate h2 {
-            font-size: 1.2em;
-            padding: 20px;
-            background-color: #007bff;
-            color: white;
-            text-align: center;
-        }
+.certificate img {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+}
 
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 1.5em;
-            }
-        }
-    </style>
+.certificate h2 {
+    font-size: 0.9rem;
+    padding: 12px;
+    background: #007bff;
+    color: white;
+    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ===== Modal ===== */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modal-content {
+    position: relative;
+    text-align: center;
+}
+
+.modal img {
+    max-width: 90vw;
+    max-height: 80vh;
+    border-radius: 10px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+
+.close {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    font-size: 35px;
+    color: white;
+    cursor: pointer;
+}
+
+.download-btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: 0.2s ease;
+}
+
+.download-btn:hover {
+    background: #0056b3;
+}
+
+/* ===== Responsive ===== */
+
+@media (max-width: 1000px) {
+    .container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+    body {
+        padding: 20px;
+    }
+}
+</style>
 </head>
+
 <body>
 
-    <h1>My Certificates</h1>
+<h1>My Certificates</h1>
 
-    <div class="container">
-        <!-- Certificate 1 -->
-        <div class="certificate">
-            <img src="./images/ccop.PNG" alt="Certificate 1">
-            <h2>Crash Course On Python</h2>
-        </div>
+<div class="container">
 
-        <!-- Certificate 2 -->
-        <div class="certificate">
-            <img src="./images/exel.PNG" alt="Certificate 2">
-            <h2>EXEL</h2>
-        </div>
-        
-        <!-- Certificate 3 -->
-        <div class="certificate">
-            <img src="./images/Ethical Hacker.PNG" alt="Certificate 3">
-            <h2>Ethical Hacker (CISCO) </h2>
-        </div>
-        <!-- Certificate 4 -->
-        <div class="certificate">
-            <img src="./images/CEH.jpeg" alt="Certificate 4">
-            <h2>CEH (NAVTTC)</h2>
-        </div> 
-        
-        <!-- Certificate 5 -->
-        <div class="certificate">
-            <img src="./images/story telling.PNG" alt="Certificate 5">
-            <h2>Storying And Self</h2>
-        </div>
-         <!-- Certificate 6 -->
-        <div class="certificate">
-            <img src="./images/matlab.PNG" alt="Certificate 6">
-            <h2>Onramp MATLAB</h2>
-        </div>
-     <!-- Certificate 7 -->
-     <div class="certificate">
-        <img src="./images/simulink.PNG" alt="Certificate 7">
-        <h2>Simulink Onramp</h2>
+<div class="certificate"><img src="./images/ccop.PNG" onclick="openModal(this.src)"><h2>Crash Course On Python</h2></div>
+<div class="certificate"><img src="./images/Ethical Hacker.PNG" onclick="openModal(this.src)"><h2>Ethical Hacker (CISCO)</h2></div>
+<div class="certificate"><img src="./images/CEH.jpeg" onclick="openModal(this.src)"><h2>CEH (NAVTTC)</h2></div>
+<div class="certificate"><img src="./images/Ai for everyone.PNG" onclick="openModal(this.src)"><h2>AI For Everyone</h2></div>
+<div class="certificate"><img src="./images/Game dev.PNG" onclick="openModal(this.src)"><h2>Basic Game Development</h2></div>
+<div class="certificate"><img src="./images/intro to cyber.PNG" onclick="openModal(this.src)"><h2>Intro To Cyber Security</h2></div>
+<div class="certificate"><img src="./images/Statistical Analysis.PNG" onclick="openModal(this.src)"><h2>Statistical Analysis Of Data</h2></div>
+<div class="certificate"><img src="./images/IFED.PNG" onclick="openModal(this.src)"><h2>Intro To Front End Development (META)</h2></div>
+<div class="certificate"><img src="./images/MLSA.PNG" onclick="openModal(this.src)"><h2>Intro To Front End Development (MLSA)</h2></div>
+<div class="certificate"><img src="./images/js.PNG" onclick="openModal(this.src)"><h2>Programming With JavaScript</h2></div>
+<div class="certificate"><img src="./images/version control.PNG" onclick="openModal(this.src)"><h2>Version Control</h2></div>
+<div class="certificate"><img src="./images/story telling.PNG" onclick="openModal(this.src)"><h2>Storying And Self</h2></div>
+<div class="certificate"><img src="./images/matlab.PNG" onclick="openModal(this.src)"><h2>Onramp MATLAB</h2></div>
+<div class="certificate"><img src="./images/simulink.PNG" onclick="openModal(this.src)"><h2>Simulink Onramp</h2></div>
+<div class="certificate"><img src="./images/Sig-Pro-Onramp.PNG" onclick="openModal(this.src)"><h2>Signal Processing Onramp</h2></div>
+<div class="certificate"><img src="./images/work smart with exel.PNG" onclick="openModal(this.src)"><h2>Work Smarter With Excel</h2></div>
+<div class="certificate"><img src="./images/exel.PNG" onclick="openModal(this.src)"><h2>Introduction to MS Excel</h2></div>
+
+</div>
+
+<!-- Modal -->
+<div id="imageModal" class="modal" onclick="outsideClick(event)">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img id="modalImage">
+        <br>
+        <a id="downloadLink" class="download-btn" download>Download Certificate</a>
     </div>
-         <!-- Certificate 8 -->
-         <div class="certificate">
-            <img src="./images/Sig-Pro-Onramp.PNG" alt="Certificate 8">
-            <h2>Signal Processing Onramp</h2>
-        </div>
-             <!-- Certificate 9 -->
-             <div class="certificate">
-                <img src="./images/MLSA.PNG" alt="Certificate 9">
-                <h2>MLSA</h2>
-            </div>
-        <!-- Add more certificates as needed -->
-    </div>
+</div>
+
+<script>
+function openModal(src) {
+    document.getElementById("imageModal").style.display = "flex";
+    document.getElementById("modalImage").src = src;
+    document.getElementById("downloadLink").href = src;
+}
+
+function closeModal() {
+    document.getElementById("imageModal").style.display = "none";
+}
+
+function outsideClick(event) {
+    if (event.target.id === "imageModal") {
+        closeModal();
+    }
+}
+
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+        closeModal();
+    }
+});
+</script>
 
 </body>
 </html>
